@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+
 import { gsap } from "gsap";
 
 // ─── Types ───────────────────────────────────────────────────
