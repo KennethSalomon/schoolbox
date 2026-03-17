@@ -1,10 +1,8 @@
 "use client";
 
-"use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "@/lib/supabase/client";
+import { createClientComponentClient } from "../lib/supabase/client";
 import type { CartItem } from "./ProductCard";
 
 type PaymentMethod = "mtn_money" | "moov_money" | "livraison";
