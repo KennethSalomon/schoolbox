@@ -2,8 +2,7 @@
 
 import { useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { gsap } from "gsap";
-// Assure-toi que le fichier ProductCard.tsx existe dans le même dossier
-import type { CartItem } from "../SB/src/components/ProductCard";
+import type { CartItem } from "./ProductCard";
 
 interface InteractiveBoxProps {
   items: CartItem[];
@@ -44,11 +43,8 @@ const InteractiveBox = forwardRef<BoxHandle, InteractiveBoxProps>(
             yoyo: true,
             repeat: 5,
             duration: 0.07,
-            ease: "TweenVars",
-            // Correction : Utilisation d'un bloc {} pour ne pas retourner le Tween
-            onComplete: () => {
-              gsap.set(el, { rotation: 0 });
-            },
+            ease: "power1.inOut",
+            onComplete: () => gsap.set(el, { rotation: 0 }),
           }
         );
       },
