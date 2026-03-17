@@ -44,7 +44,7 @@ const InteractiveBox = forwardRef<BoxHandle, InteractiveBoxProps>(
             repeat: 5,
             duration: 0.07,
             ease: "power1.inOut",
-            onComplete: () => gsap.set(el, { rotation: 0 }),
+            onComplete: () => { gsap.set(el, { rotation: 0 }); }
           }
         );
       },
