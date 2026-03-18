@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { createClientComponentClient } from "../lib/supabase/client";
-
+import { createClientComponentClient } from "../../src/lib/supabase/client";
 type OrderStatus =
   | "en_attente"
   | "confirmée"
