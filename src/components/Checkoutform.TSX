@@ -110,6 +110,9 @@ export default function CheckoutForm({
             qty: i.qty,
             unit_price: i.unit_price,
             subtotal: i.subtotal,
+            payment_method: payMethod,
+    payment_phone: mobileNumber || phone, // AJOUTEZ CETTE LIGNE ICI
+    payment_status: "en_attente",
           })),
           subtotal,
           delivery_fee: DELIVERY_FEE,
