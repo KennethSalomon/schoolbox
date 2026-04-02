@@ -102,7 +102,7 @@ export default function DashboardPage() {
       {/* Main content */}
       <main
         style={{
-          marginLeft: "240px",
+          marginLeft: "var(--content-margin)",
           flex: 1,
           padding: "40px 48px",
           fontFamily: "var(--font-body)",

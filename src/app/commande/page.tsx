@@ -51,7 +51,7 @@ export default function CommandePage() {
     return (
       <div style={{ display: "flex", minHeight: "100vh", background: "var(--bg-base)" }}>
         <UserNav />
-        <main style={{ marginLeft: "240px", flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <main style={{ marginLeft: "var(--content-margin)", flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ textAlign: "center" }}>
             <div style={{ fontSize: "48px", marginBottom: "16px", animation: "spin-slow 2s linear infinite", display: "inline-block" }}>⚙️</div>
             <p style={{ color: "var(--text-muted)", fontSize: "14px" }}>Chargement…</p>
@@ -67,7 +67,7 @@ export default function CommandePage() {
         <UserNav />
         <main
           style={{
-            marginLeft: "240px",
+            marginLeft: "var(--content-margin)",
             flex: 1,
             display: "flex",
             alignItems: "center",
@@ -115,7 +115,7 @@ export default function CommandePage() {
 
       <main
         style={{
-          marginLeft: "240px",
+          marginLeft: "var(--content-margin)",
           flex: 1,
           fontFamily: "var(--font-body)",
         }}

@@ -155,7 +155,7 @@ export default function MaBoxPage() {
 
       <main
         style={{
-          marginLeft: "240px",
+          marginLeft: "var(--content-margin)",
           flex: 1,
           fontFamily: "var(--font-body)",
           display: "flex",

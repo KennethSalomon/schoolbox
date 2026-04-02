@@ -144,7 +144,7 @@ export default function OrdersDashboard() {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "24px" }}>
         <div>
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "28px", color: "#f0ece0", margin: "0 0 4px" }}>Admin Dashboard</h1>
+          <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "28px", color: "#f0ece0", margin: "0 0 4px" }}>Admin Dashboard</h1>
           <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.35)", margin: 0 }}>Gestion des commandes School Box</p>
         </div>
         <button onClick={fetchOrders} disabled={loading} style={{ padding: "8px 16px", borderRadius: "8px", border: "1px solid rgba(212,175,55,0.3)", background: "transparent", color: "#d4af37", fontSize: "13px", cursor: "pointer" }}>
@@ -232,7 +232,7 @@ export default function OrdersDashboard() {
       {selectedOrder && (
         <div style={{ position: "fixed", right: 0, top: 0, bottom: 0, width: "360px", background: "#0f0f1a", borderLeft: "1px solid rgba(212,175,55,0.15)", zIndex: 1000, overflowY: "auto", boxShadow: "-10px 0 40px rgba(0,0,0,0.5)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px", borderBottom: "1px solid rgba(255,255,255,0.06)", position: "sticky", top: 0, background: "#0f0f1a", zIndex: 1 }}>
-            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "18px", color: "#f0ece0", margin: 0 }}>Commande {selectedOrder.order_number}</h3>
+            <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "18px", color: "#f0ece0", margin: 0 }}>Commande {selectedOrder.order_number}</h3>
             <button onClick={() => setSelectedOrder(null)} style={{ background: "none", border: "none", color: "rgba(255,255,255,0.4)", fontSize: "18px", cursor: "pointer" }}>✕</button>
           </div>
           <div style={{ padding: "20px" }}>

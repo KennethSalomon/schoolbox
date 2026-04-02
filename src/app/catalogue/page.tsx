@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "../../lib/supabase/client";
 import ProductCard, { Product, CartItem } from "../../components/ProductCard";
 import InteractiveBox, { BoxHandle } from "../../components/interactivebox";
@@ -10,14 +11,31 @@ export default function CataloguePage() {
   const boxRef = useRef<HTMLDivElement>(null);
   const boxHandleRef = useRef<BoxHandle>(null);
 
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [schools, setSchools] = useState<{ id: string; name: string }[]>([]);
   const [selectedSchool, setSelectedSchool] = useState("");
   const [selectedGrade, setSelectedGrade] = useState("");
-  const [showCheckout, setShowCheckout] = useState(false);
   const [category, setCategory] = useState("all");
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("sb_box_draft");
+    if (saved) {
+      try {
+        setCart(JSON.parse(saved));
+      } catch (e) {
+        console.error("Failed to parse cart", e);
+      }
+    }
+  }, []);
+
+  // Sync to localStorage
+  useEffect(() => {
+    localStorage.setItem("sb_box_draft", JSON.stringify(cart));
+  }, [cart]);
 
   useEffect(() => {
     const fetchSchools = async () => {
@@ -198,49 +216,27 @@ export default function CataloguePage() {
         <InteractiveBox
           ref={boxHandleRef}
           items={cart}
-          onCheckout={() => setShowCheckout(true)}
+          onCheckout={() => router.push("/ma-box")}
         />
       </div>
 
-      {/* Simple checkout modal placeholder */}
-      {showCheckout && (
-        <div style={{
-          position: "fixed", inset: 0, zIndex: 200,
-          background: "rgba(0,0,0,0.8)", backdropFilter: "blur(8px)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          padding: "24px",
-        }}
-          onClick={() => setShowCheckout(false)}
-        >
-          <div
-            style={{
-              background: "#0f0f1a", borderRadius: "20px",
-              border: "1px solid rgba(212,175,55,0.2)",
-              padding: "32px", maxWidth: "480px", width: "100%",
-            }}
-            onClick={e => e.stopPropagation()}
-          >
-            <h2 style={{ color: "#f0ece0", margin: "0 0 8px", fontWeight: 800 }}>Finaliser ma Box</h2>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px", marginBottom: "24px" }}>
-              {cart.length} article{cart.length > 1 ? "s" : ""} · Total :{" "}
-              <strong style={{ color: "#d4af37" }}>
-                {new Intl.NumberFormat("fr-BJ", { style: "currency", currency: "XOF", maximumFractionDigits: 0 })
-                  .format(cart.reduce((s, i) => s + i.subtotal, 0) + 1500)}
-              </strong>
-            </p>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "13px", marginBottom: "20px" }}>
-              Le formulaire de commande complet sera disponible ici. Branchez votre page <code>/commande</code> avec le composant CheckoutForm.
-            </p>
-            <button
-              onClick={() => setShowCheckout(false)}
-              style={{
-                width: "100%", padding: "14px", borderRadius: "12px", border: "none",
-                background: "linear-gradient(135deg, #d4af37, #b8860b)",
-                color: "#0a0a0f", fontWeight: 800, fontSize: "14px", cursor: "pointer",
-              }}
-            >Fermer</button>
-          </div>
-        </div>
+      {/* Go to Ma Box CTA */}
+      {cart.length > 0 && (
+         <div style={{
+           position: "fixed", bottom: "100px", right: "24px", zIndex: 150,
+         }}>
+           <button 
+             onClick={() => router.push("/ma-box")}
+             style={{
+               padding: "16px 32px", borderRadius: "16px", border: "none",
+               background: "linear-gradient(135deg, #d4af37, #b8860b)",
+               color: "#0a0a0f", fontWeight: 800, fontSize: "14px", cursor: "pointer",
+               boxShadow: "0 8px 32px rgba(212,175,55,0.3)", display: "flex", alignItems: "center", gap: "8px"
+             }}
+           >
+             Voir ma Box ({cart.length}) →
+           </button>
+         </div>
       )}
 
       <style>{`

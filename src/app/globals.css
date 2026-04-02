@@ -40,6 +40,26 @@
   --radius-lg:  16px;
   --radius-xl:  20px;
   --radius-2xl: 28px;
+
+  /* Layout Constants */
+  --sidebar-width:  240px;
+  --content-margin: 240px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width:  0px;
+    --content-margin: 0px;
+  }
+}
+
+/* ── Responsive Utils ────────────────────────────────── */
+.mobile-show { display: none !important; }
+.desktop-show { display: flex !important; }
+
+@media (max-width: 1024px) {
+  .mobile-show { display: flex !important; }
+  .desktop-show { display: none !important; }
 }
 
 /* ── Base Reset ────────────────────────────────────────────── */

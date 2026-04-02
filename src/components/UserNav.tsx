@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -13,24 +14,66 @@ const navLinks = [
 
 export default function UserNav() {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <aside
-      style={{
-        width: "240px",
-        minHeight: "100vh",
-        background: "linear-gradient(180deg, #0b0b16 0%, #0f0f1a 100%)",
-        borderRight: "1px solid rgba(212,175,55,0.1)",
-        display: "flex",
-        flexDirection: "column",
-        padding: "0",
-        position: "fixed",
-        top: 0,
-        left: 0,
-        zIndex: 60,
-        fontFamily: "var(--font-body)",
-      }}
-    >
+    <>
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="mobile-show"
+        style={{
+          position: "fixed", top: "16px", left: "16px", zIndex: 100,
+          width: "44px", height: "44px", borderRadius: "12px",
+          background: "rgba(11,11,22,0.8)", backdropFilter: "blur(12px)",
+          border: "1px solid rgba(212,175,55,0.3)",
+          color: "#d4af37", fontSize: "20px", display: "flex",
+          alignItems: "center", justifyContent: "center", cursor: "pointer",
+          boxShadow: "0 4px 16px rgba(0,0,0,0.3)"
+        }}
+      >
+        {isOpen ? "✕" : "☰"}
+      </button>
+
+      {/* Overlay Mobile */}
+      {isOpen && (
+        <div 
+          onClick={() => setIsOpen(false)}
+          className="mobile-show"
+          style={{
+            position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)",
+            backdropFilter: "blur(4px)", zIndex: 55
+          }}
+        />
+      )}
+
+      <aside
+        style={{
+          width: "240px",
+          minHeight: "100vh",
+          background: "linear-gradient(180deg, #0b0b16 0%, #0f0f1a 100%)",
+          borderRight: "1px solid rgba(212,175,55,0.1)",
+          display: "flex",
+          flexDirection: "column",
+          padding: "0",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          zIndex: 60,
+          fontFamily: "var(--font-body)",
+          transition: "transform 0.3s ease-in-out",
+          transform: isOpen ? "translateX(0)" : "translateX(-100%)",
+        }}
+        // Handled via style above for mobile, but on desktop we want it always visible
+        className="user-nav-aside"
+      >
+        <style>{`
+          @media (min-width: 1025px) {
+            .user-nav-aside {
+              transform: none !important;
+            }
+          }
+        `}</style>
       {/* Logo */}
       <div
         style={{
@@ -184,5 +227,6 @@ export default function UserNav() {
         </Link>
       </div>
     </aside>
+    </>
   );
 }
